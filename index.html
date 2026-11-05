@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>GTA VI · Cuenta Regresiva</title>
+<meta name="description" content="Cuenta regresiva en vivo para el lanzamiento de Grand Theft Auto VI — 19 de noviembre de 2026.">
+<meta name="theme-color" content="#150a26">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GTA VI">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#ff5fa2; --pink2:#c23385;
+    --bg1:#150a26; --bg2:#251042;
+    --card:rgba(255,255,255,.07); --border:rgba(255,255,255,.14);
+    --muted:#b9a6d6; --text:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:'Urbanist',system-ui,-apple-system,sans-serif;
+    background:radial-gradient(1000px 500px at 50% -10%,#2a1145 0%,var(--bg1) 60%);
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px 16px;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .widget{
+    position:relative;
+    overflow:hidden;
+    width:100%;
+    max-width:560px;
+    border-radius:28px;
+    border:1px solid var(--border);
+    background:radial-gradient(900px 420px at 50% -12%,#3a1556 0%,transparent 60%),linear-gradient(160deg,var(--bg2) 0%,var(--bg1) 100%);
+    box-shadow:0 30px 80px rgba(0,0,0,.55);
+    padding:48px 24px 34px;
+  }
+  .glow-orb{
+    position:absolute;top:-150px;left:50%;transform:translateX(-50%);
+    width:440px;height:440px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,95,162,.45) 0%,rgba(255,95,162,0) 65%);
+    pointer-events:none;
+    animation:drift 9s ease-in-out infinite;
+  }
+  @keyframes drift{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-54%) scale(1.08)}}
+  .eyebrow{
+    position:relative;text-align:center;
+    font-size:12px;letter-spacing:.38em;text-transform:uppercase;
+    color:var(--pink);font-weight:600;margin-bottom:18px;
+  }
+  h1{
+    position:relative;text-align:center;
+    font-family:'Oswald',sans-serif;font-weight:700;
+    font-size:clamp(56px,16vw,104px);line-height:1;
+    letter-spacing:.02em;margin-bottom:22px;
+    animation:titleGlow 3.2s ease-in-out infinite;
+  }
+  @keyframes titleGlow{
+    0%,100%{text-shadow:3px 3px 0 var(--pink2),6px 6px 0 rgba(194,51,133,.55),0 0 34px rgba(255,95,162,.45)}
+    50%{text-shadow:3px 3px 0 var(--pink2),6px 6px 0 rgba(194,51,133,.55),0 0 56px rgba(255,95,162,.75)}
+  }
+  .subtitle{
+    position:relative;text-align:center;
+    font-size:clamp(13px,3.6vw,17px);letter-spacing:.22em;text-transform:uppercase;
+    color:var(--muted);font-weight:500;line-height:1.7;margin-bottom:36px;
+  }
+  .grid{
+    position:relative;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+    margin-bottom:26px;
+  }
+  .box{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:18px;padding:18px 4px 14px;text-align:center;
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+    cursor:default;
+  }
+  .box:hover{transform:translateY(-3px);border-color:rgba(255,95,162,.55);box-shadow:0 10px 30px rgba(255,95,162,.18)}
+  .num{
+    font-family:'Oswald',sans-serif;font-weight:700;
+    font-size:clamp(28px,9vw,48px);line-height:1.1;
+    font-variant-numeric:tabular-nums;
+  }
+  .num.sec{color:var(--pink)}
+  .label{
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;margin-top:8px;
+  }
+  .bar-track{
+    position:relative;height:3px;border-radius:99px;
+    background:rgba(255,255,255,.08);overflow:hidden;margin-bottom:22px;
+  }
+  .bar-fill{
+    height:100%;width:0%;border-radius:99px;
+    background:linear-gradient(90deg,var(--pink2),var(--pink));
+    transition:width .8s ease;
+  }
+  .note{
+    position:relative;text-align:center;
+    font-size:12px;line-height:1.6;color:var(--muted);
+  }
+  .install-hint{
+    position:relative;text-align:center;margin-top:14px;
+    font-size:11px;color:rgba(185,166,214,.7);
+  }
+  #installBtn{
+    display:none;margin:16px auto 0;
+    font-family:'Urbanist',sans-serif;font-weight:600;font-size:14px;
+    padding:12px 26px;border-radius:99px;cursor:pointer;
+    background:var(--pink);color:#150a26;border:none;
+    box-shadow:0 6px 20px rgba(255,95,162,.4);
+    transition:transform .15s ease,box-shadow .15s ease;
+  }
+  #installBtn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(255,95,162,.55)}
+  #installBtn:active{transform:translateY(0)}
+  @media (max-width:360px){.grid{gap:6px}.box{padding:14px 2px 10px}}
+</style>
+</head>
+<body>
+  <main class="widget">
+    <div class="glow-orb"></div>
+    <p class="eyebrow">The wait is almost over</p>
+    <h1>GTA VI</h1>
+    <p class="subtitle">Vice City · Leonida · 19 Noviembre 2026</p>
+    <div class="grid">
+      <div class="box"><div id="cd-d" class="num">000</div><div class="label">Días</div></div>
+      <div class="box"><div id="cd-h" class="num">00</div><div class="label">Horas</div></div>
+      <div class="box"><div id="cd-m" class="num">00</div><div class="label">Minutos</div></div>
+      <div class="box"><div id="cd-s" class="num sec">00</div><div class="label">Segundos</div></div>
+    </div>
+    <div class="bar-track"><div id="cd-bar" class="bar-fill"></div></div>
+    <p id="cd-note" class="note">Cuenta regresiva hasta el 19/11/2026 · 00:00 (hora de Panamá) · PS5 / Xbox Series X|S</p>
+    <button id="installBtn">Instalar app</button>
+    <p class="install-hint">Tip: en el menú del navegador elige «Instalar app» o «Agregar a pantalla de inicio».</p>
+  </main>
+
+<script>
+(function(){
+  // 19 de noviembre de 2026, 00:00 hora de Panamá (UTC-5) = 05:00 UTC
+  var target = Date.UTC(2026,10,19,5,0,0);
+  // Referencia de inicio de la espera: primer tráiler (4 dic 2023)
+  var start  = Date.UTC(2023,11,4,14,0,0);
+  var dEl=document.getElementById('cd-d'), hEl=document.getElementById('cd-h'),
+      mEl=document.getElementById('cd-m'), sEl=document.getElementById('cd-s'),
+      bar=document.getElementById('cd-bar'), note=document.getElementById('cd-note');
+  function pad(n,l){n=String(n);while(n.length<l)n='0'+n;return n;}
+  function tick(){
+    var now=Date.now(), diff=target-now;
+    if(diff<=0){
+      diff=0;
+      if(note) note.textContent='¡Ya salió! GTA VI ya está disponible en Vice City.';
+    }
+    var s=Math.floor(diff/1000);
+    var d=Math.floor(s/86400); s%=86400;
+    var h=Math.floor(s/3600);  s%=3600;
+    var m=Math.floor(s/60);    s%=60;
+    if(dEl)dEl.textContent=pad(d,3);
+    if(hEl)hEl.textContent=pad(h,2);
+    if(mEl)mEl.textContent=pad(m,2);
+    if(sEl)sEl.textContent=pad(s,2);
+    if(bar){var p=(now-start)/(target-start)*100;if(p<0)p=0;if(p>100)p=100;bar.style.width=p+'%';}
+  }
+  tick(); setInterval(tick,1000);
+
+  // Registro del Service Worker (funciona solo sobre HTTPS o localhost)
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){/* sin SW en file:// */});
+    });
+  }
+
+  // Botón de instalación (Chrome/Edge en Android/Desktop)
+  var deferredPrompt=null, btn=document.getElementById('installBtn');
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault(); deferredPrompt=e;
+    if(btn) btn.style.display='block';
+  });
+  if(btn) btn.addEventListener('click', function(){
+    if(!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(function(){ deferredPrompt=null; btn.style.display='none'; });
+  });
+  window.addEventListener('appinstalled', function(){ if(btn) btn.style.display='none'; });
+})();
+</script>
+</body>
+</html>
